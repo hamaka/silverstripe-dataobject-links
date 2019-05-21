@@ -28,6 +28,8 @@ class DataObjectLinkFormFactory extends LinkFormFactory
      */
     protected function getFormFields($controller, $name, $context)
     {
+        $parsedClassName =  str_replace('/', '\\', $context['ClassName']);
+
         $fields = FieldList::create([
             DropdownField::create(
                 'ClassName',
@@ -48,13 +50,13 @@ class DataObjectLinkFormFactory extends LinkFormFactory
             ),
         ]);
 
-        if ($context['ClassName']) {
+        if ($parsedClassName) {
             $fields->insertAfter(
                 'ClassName',
                 DropdownField::create(
                     'ObjectID',
-                    _t(__CLASS__.'.SELECT_OBJECT', 'Select a ' . $context['ClassName']),
-                    $context['ClassName']::get()->Map('ID', 'Title'),
+                    _t(__CLASS__.'.SELECT_OBJECT', 'Select a ' . $parsedClassName),
+                    $parsedClassName::get()->Map('ID', 'Title'),
                     $context['ObjectID']
                 )->setHasEmptyDefault(true)
             );
