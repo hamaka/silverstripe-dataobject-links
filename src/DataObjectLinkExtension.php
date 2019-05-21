@@ -22,6 +22,8 @@ class DataObjectLinkExtension extends Extension {
 		}
 		
 		$class = str_replace('/', '\\', $arguments['clazz']);
+		$class = str_replace('HamakaModelsBuyableArrangementArrangement', 'Hamaka\Models\Buyable\Arrangement\Arrangement', $class);
+		$class = str_replace('HamakaModelsBuyableProductProductSet', 'Hamaka\Models\Buyable\Product\ProductSet', $class);
 
 		if (!($obj = DataObject::get_by_id($class, $arguments['id']))
 			&& !($obj = Versioned::get_latest_version($class, $arguments['id']))
